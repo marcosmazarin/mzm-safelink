@@ -1,0 +1,6 @@
+@mzm_safelink.api_HostAddress = http://localhost:5070
+
+GET {{mzm_safelink.api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

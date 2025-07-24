@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>mzm_safelink.ioc</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>    
+    <ProjectReference Include="..\mzm-safelink.application\mzm-safelink.application.csproj" />    
+    <ProjectReference Include="..\mzm-safelink.infra\mzm-safelink.infra.csproj" />        
+  </ItemGroup>
+
+</Project>
