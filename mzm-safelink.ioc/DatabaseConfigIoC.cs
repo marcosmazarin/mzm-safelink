@@ -15,6 +15,7 @@ namespace mzm_safelink.ioc
                 options.UseNpgsql(Environment.GetEnvironmentVariable("SUPABASE")!));
             
             services.AddScoped<IBaseRepository<Url>, BaseRepository<Url>>();
+            services.AddScoped<IUrlRepository, UrlRepository>();
 
             return services;
         }
