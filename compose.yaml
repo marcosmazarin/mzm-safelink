@@ -1,0 +1,14 @@
+services:
+  api:
+    build:
+      context: .        # raiz do projeto (onde está o .sln e o Dockerfile)
+      dockerfile: Dockerfile
+      target: final     # vai usar o stage final do Dockerfile
+    ports:
+      - "8080:8080"
+    environment:      
+      - DOTNET_RUNNING_IN_CONTAINER=true
+      - DOTNET_USE_POLLING_FILE_WATCHER=true
+      # se quiser log mais detalhado:
+      # - DOTNET_LogLevel=Debug
+    restart: unless-stopped

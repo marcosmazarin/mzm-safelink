@@ -1,5 +1,4 @@
 using DotNetEnv;
-using Microsoft.OpenApi.Models;
 using mzm_safelink.ioc;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,14 +17,14 @@ builder.Services.AddUseCases();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+/*if (app.Environment.IsDevelopment())
+{*/
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+//}
 
 app.UseRouting();
 app.MapControllers();
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.Run();
