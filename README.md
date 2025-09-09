@@ -1,6 +1,16 @@
 # mzm-safelink
 A safe url shortener
 
+## Deploy
+
+Este projeto está com o deploy realizado via [Render.com](https://render.com), disponível em:  
+**https://mzm-safelink.onrender.com**
+
+O Swagger está disponível em produção no endpoint:  
+**https://mzm-safelink.onrender.com/swagger**
+
+As variáveis de ambiente foram configuradas diretamente no dashboard do Render.
+
 ## Rodando as migrations do Entity Framework
 
 Para aplicar as migrations ao banco de dados, execute o comando abaixo no terminal, a partir da raiz do projeto:
