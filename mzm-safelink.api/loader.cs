@@ -1,4 +1,6 @@
 using DotNetEnv;
+using Microsoft.EntityFrameworkCore;
+using mzm_safelink.infra.persistence;
 using mzm_safelink.ioc;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,10 +18,12 @@ builder.Services.AddUseCases();
 
 var app = builder.Build();
 
+SyncMigrations(app);
+
 // Configure the HTTP request pipeline.
 /*if (app.Environment.IsDevelopment())
 {*/
-    app.UseSwagger();
+app.UseSwagger();
     app.UseSwaggerUI();
 //}
 
@@ -28,3 +32,19 @@ app.MapControllers();
 //app.UseHttpsRedirection();
 
 app.Run();
+
+static void SyncMigrations(WebApplication app)
+{
+    using var scope = app.Services.CreateScope();
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    try
+    {
+        db.Database.Migrate();
+        Console.WriteLine("Database migrated successfully");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine(ex.Message);
+        throw;
+    }
+}
