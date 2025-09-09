@@ -14,7 +14,8 @@ namespace mzm_safelink.api.controllers
         [HttpPost]
         public async Task<IActionResult> ShortenUrl([FromBody] UrlCreateDTO urlCreateDTO, [FromServices] IValidator<UrlCreateDTO> validator)
         {
-            var validationResult = await validator.ValidateAsync(urlCreateDTO);
+            return Ok(new { Message = "Service is running" });
+            /*var validationResult = await validator.ValidateAsync(urlCreateDTO);
             if (!validationResult.IsValid)
             {
                 return BadRequest(validationResult.Errors);
@@ -26,7 +27,7 @@ namespace mzm_safelink.api.controllers
                 return Ok(result.Data);
             }
 
-            return BadRequest(result.ErrorMessage);
+            return BadRequest(result.ErrorMessage);*/
         }
     }    
 }
