@@ -13,10 +13,11 @@ namespace mzm_safelink.application.usecases
         public async Task<UseCaseResult<UrlCreateResponseDTO>> ExecuteAsync(UrlCreateDTO urlCreateDTO)
         {
             string shortUrlCode = await GenerateShortUrLCode();
+            string formatedUrl = await FormatOriginalUrl(urlCreateDTO.Url);
 
             Url shortenedUrl = new()
             {
-                OriginalUrl = urlCreateDTO.Url,
+                OriginalUrl = formatedUrl,
                 ShortenUrl = new Uri(new Uri(Environment.GetEnvironmentVariable("BASE_DOMAIN")!), shortUrlCode).ToString(),
                 CodeUrl = shortUrlCode
             };
@@ -31,16 +32,27 @@ namespace mzm_safelink.application.usecases
             return UseCaseResult<UrlCreateResponseDTO>.Success("URL created with success", urlCreateResponse);
         }
 
-        private Task<string> GenerateShortUrLCode()
+        private static Task<string> GenerateShortUrLCode()
         {
             char[] chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".ToCharArray();
 
             StringBuilder shortUrl = new();
 
             while (shortUrl.Length <= 6)
-                shortUrl.Append(chars[Random.Shared.Next(0, chars.Length - 1)]);            
-                
+                shortUrl.Append(chars[Random.Shared.Next(0, chars.Length - 1)]);
+
             return Task.FromResult(shortUrl.ToString());
+        }
+
+        private static Task<string> FormatOriginalUrl(string originalUrl)
+        {
+            if (!originalUrl.TrimStart().StartsWith("https://", StringComparison.OrdinalIgnoreCase))
+                originalUrl = "https://" + originalUrl;
+
+            if (!Uri.TryCreate(originalUrl, UriKind.Absolute, out var urlDestino) || urlDestino.Scheme != Uri.UriSchemeHttps)
+                return Task.FromResult("");
+
+            return Task.FromResult(originalUrl);
         }
     }
 }

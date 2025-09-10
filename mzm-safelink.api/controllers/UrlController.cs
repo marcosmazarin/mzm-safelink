@@ -38,8 +38,8 @@ namespace mzm_safelink.api.controllers
             UseCaseResult<string> useCaseResult = await _redirectUrlUseCase.ExecuteAsync(shortCode);
             if (!useCaseResult.IsSuccess)
                 return NotFound(new ApiResponse<string>(false, "URL original não encontrada"));
-            
-            return Redirect("https://www.google.com");
+
+            return Redirect(useCaseResult.Data!);
         }
     }    
 }
